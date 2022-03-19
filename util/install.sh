@@ -193,7 +193,7 @@ function mn_deps {
         $install ${PYPKG}-pip || $install ${PYPKG}-pip-whl
         if ! ${PYTHON} -m pip -V; then
             if [ $PYTHON_VERSION == 2 ]; then
-                wget https://bootstrap.pypa.io/2.6/get-pip.py
+                wget https://bootstrap.pypa.io/pip/2.6/get-pip.py
             else
                 wget https://bootstrap.pypa.io/get-pip.py
             fi
@@ -515,7 +515,7 @@ function ivs {
 
     # Install IVS from source
     cd $BUILD_DIR
-    git clone git://github.com/floodlight/ivs $IVS_SRC
+    git clone https://github.com/floodlight/ivs $IVS_SRC
     cd $IVS_SRC
     git submodule update --init
     make
