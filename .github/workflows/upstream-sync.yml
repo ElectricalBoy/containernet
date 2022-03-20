@@ -39,6 +39,6 @@ jobs:
       with:
         destination_branch: ${{ env.PR_DEST_NAME }}
         source_branch: ${{ env.PR_BRANCH_NAME }}
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        github_token: ${{ github.token }}
         pr_title: "Merging upstream into ${{ env.PR_DEST_NAME }}"
         pr_allow_empty: false
