@@ -14,7 +14,8 @@ jobs:
     - name: Checkout upstream
       uses: actions/checkout@v3.0.0
       with:
-        ref: mininet-master
+        repository: mininet/mininet
+        ref: master
     - name: Sync upstream
       id: sync
       uses: aormsby/Fork-Sync-With-Upstream-action@v3.2
@@ -24,13 +25,10 @@ jobs:
         target_sync_branch: mininet-master
         target_repo_token: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: New commits found
+    - name: Create PR if there is new commit
       if: steps.sync.outputs.has_new_commits == 'true'
-      run: echo "New commits were found to sync."
-    
-    - name: No new commits
-      if: steps.sync.outputs.has_new_commits == 'false'
-      run: echo "There were no new commits."
-      
-    - name: Show value of 'has_new_commits'
-      run: echo ${{ steps.sync.outputs.has_new_commits }}
+      uses: peter-evans/create-pull-request@v3
+      with:
+        base: main
+        branch: upstream-sync
+        delete-branch: true
