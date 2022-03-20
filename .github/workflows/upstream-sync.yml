@@ -23,7 +23,6 @@ jobs:
         upstream_sync_branch: master
         target_sync_branch: mininet-master
         target_repo_token: ${{ secrets.GITHUB_TOKEN }}
-        test_mode: true
 
     - name: New commits found
       if: steps.sync.outputs.has_new_commits == 'true'
