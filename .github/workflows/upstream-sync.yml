@@ -14,8 +14,7 @@ jobs:
     - name: Checkout upstream
       uses: actions/checkout@v3.0.0
       with:
-        repository: mininet/mininet
-        ref: master
+        ref: mininet-master
     - name: Sync upstream
       id: sync
       uses: aormsby/Fork-Sync-With-Upstream-action@v3.2
