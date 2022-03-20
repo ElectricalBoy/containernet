@@ -5,6 +5,10 @@ on:
     - cron: '0 0 * * *'
   workflow_dispatch:
 
+env:
+  PR_BRANCH_NAME: upstream-sync
+  PR_DEST_NAME: main
+
 jobs:
   sync-with-upstream:
     runs-on: ubuntu-latest
@@ -24,10 +28,17 @@ jobs:
         target_sync_branch: mininet-master
         target_repo_token: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Create PR if there is new commit
+    - name: Create new branch for PR
       if: steps.sync.outputs.has_new_commits == 'true'
-      uses: peter-evans/create-pull-request@v3
+      run: |
+        git checkout -b upstream-sync
+        git push -u origin ${{ env.PR_BRANCH_NAME }}
+    - name: Create new PR
+      if: steps.sync.outputs.has_new_commits == 'true'
+      uses: repo-sync/pull-request@v2
       with:
-        base: main
-        branch: upstream-sync
-        delete-branch: true
+        destination_branch: ${{ env.PR_DEST_NAME }}
+        source_branch: ${{ env.PR_BRANCH_NAME }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        pr_title: "Merging upstream into ${{ env.PR_DEST_NAME }}"
+        pr_allow_empty: false
