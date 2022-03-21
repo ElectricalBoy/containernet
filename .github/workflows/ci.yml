@@ -40,7 +40,7 @@ jobs:
           dockerfile: ./Dockerfile.centos
 
     name: Run tests in ${{ matrix.container.system }} container
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v3
     # OVS needs to install a kernel module. We do not want to allow
