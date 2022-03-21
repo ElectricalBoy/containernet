@@ -33,12 +33,3 @@ jobs:
       run: |
         git checkout -b upstream-sync
         git push -u origin ${{ env.PR_BRANCH_NAME }}
-    - name: Create new PR
-      if: steps.sync.outputs.has_new_commits == 'true'
-      uses: repo-sync/pull-request@v2
-      with:
-        destination_branch: ${{ env.PR_DEST_NAME }}
-        source_branch: ${{ env.PR_BRANCH_NAME }}
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        pr_title: "Merging upstream into ${{ env.PR_DEST_NAME }}"
-        pr_allow_empty: false
