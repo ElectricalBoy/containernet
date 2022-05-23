@@ -21,7 +21,7 @@ jobs:
         ref: mininet-master
     - name: Sync upstream
       id: sync
-      uses: aormsby/Fork-Sync-With-Upstream-action@v3.2
+      uses: aormsby/Fork-Sync-With-Upstream-action@v3.3
       with:
         upstream_sync_repo: mininet/mininet
         upstream_sync_branch: master
